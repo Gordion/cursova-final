@@ -25,6 +25,7 @@ import LoginUser from "./components/login-user.component";
 import CreateUser from "./components/create-user.component";
 import EditStudent from "./components/edit-student.component";
 import VacStat from "./components/vac-statistic.component";
+import WaterStat from "./components/water-statistic.component";
 import StudentList from "./components/student-list.component";
 import UserPage from "./components/user-page.component";
 import AdminPage from "./components/admin-page.component";
@@ -94,7 +95,7 @@ function App() {
                 </NavLink>
               </Navbar.Brand>
               <Navbar.Brand>
-                <NavLink to={"/vac-statistic"} className="nav-link">
+                <NavLink to={"/water-statistic"} className="nav-link">
                   Забруднення водойм
                 </NavLink>
               </Navbar.Brand>
@@ -156,7 +157,7 @@ function App() {
                     </NavDropdown>
                   ) : (
                     <Link to={"/login-user"} className="nav-link">
-                      COVID-19
+                      Бурштинська ТЕС
                     </Link>
                   )}
                 </Nav>
@@ -189,6 +190,11 @@ function App() {
                   <Route
                     path="/vac-statistic"
                     element={<VacStat authed={true} />}
+                  />
+
+                  <Route
+                    path="/water-statistic"
+                    element={<WaterStat authed={true} />}
                   />
 
                   <Route path="/lvivmap" element={<LvivMap authed={true} />} />

@@ -263,7 +263,7 @@ export default class AdminPage extends Component {
             </tr> */}
             </div>
 
-            <div className="form-admin">
+            {/* <div className="form-admin">
               <h2>Statistic</h2>
               <Form>
                 <Form.Group
@@ -321,7 +321,7 @@ export default class AdminPage extends Component {
                   Submit
                 </Button>
               </Form>
-            </div>
+            </div> */}
           </div>
 
           <div className="stats-container">
@@ -344,7 +344,7 @@ export default class AdminPage extends Component {
                 </tbody>
               </table>
             </div>
-            <div className="stats-column">
+            {/* <div className="stats-column">
               <table className="table table-striped table-blue">
                 <thead className="thead-blue">
                   <tr>
@@ -353,15 +353,10 @@ export default class AdminPage extends Component {
                   </tr>
                 </thead>
                 <tbody>
-                  {/* <tr>
-                      <td>{this.props.obj._id}</td>
-                      <td>{this.props.obj.name}</td>
-                      <td>{this.props.obj.email}</td>
-                    </tr> */}
                   {this.dataTable(this.state.statsCollection, true)}
                 </tbody>
               </table>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

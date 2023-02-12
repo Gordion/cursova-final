@@ -21,7 +21,11 @@ export default function Homepage() {
   const [curedTotal, setCuredTotal] = useState(0);
   const [deathTotal, setDeathTotal] = useState(0);
   const [vacTotal, setVacTotal] = useState(0);
-  const [youtubeID] = useState("nS6NOsHivh4");
+  const [pm25Total, setPm25Total] = useState(0);
+  const [pm10Total, setPm10Total] = useState(0);
+  const [tempTotal, setTempTotal] = useState(0);
+  const [humTotal, setHumTotal] = useState(0);
+  const [youtubeID] = useState("nS6NOsHivh4?rel=0&showinfo=0&autohide=1");
 
   useEffect(() => {
     async function fetchLastNewsData() {
@@ -78,7 +82,7 @@ export default function Homepage() {
       }
 
       const vacResp = await axios.get(
-        "http://localhost:4000/statistics/get-vac"
+        "http://localhost:4000/statistics/get-air"
       );
       if (vacResp && vacResp.status === 200 && vacResp.data) {
         console.log("vacResp", vacResp.data);
@@ -96,8 +100,25 @@ export default function Homepage() {
               (previousValue, currentValue) => previousValue + currentValue,
               0
             );
+          const pm25 = vacData.find((item) => item.phenomenon === "pm25");
+          console.log("pm25", pm25);
+          const pm10 = vacData.find((item) => item.phenomenon === "pm10");
+          console.log("pm10", pm10);
+          const hum = vacData.find((item) => item.phenomenon === "humidity");
+          console.log("humidity", hum);
+          const temp = vacData.find(
+            (item) => item.phenomenon === "temperature"
+          );
+          const pm25v = pm25.value;
+          const pm10v = pm10.value;
+          const humv = hum.value;
+          const tempv = temp.value;
+          console.log("temperature", temp);
           console.log("vacTotal", vacTotal);
-          setVacTotal(vacTotal);
+          setPm10Total(pm10v);
+          setPm25Total(pm25v);
+          setTempTotal(tempv);
+          setHumTotal(humv);
         }
       }
       // setLastNews(vacResp.data);
@@ -114,25 +135,25 @@ export default function Homepage() {
           <div className="sidetext">
             <h3>Остання статистика:</h3>
             <p className="sidetext-title"> Температура:</p>
-            <p className="sidetext-number color-bad">
-              {casesTotal}
+            <p className="sidetext-number color-good">
+              {tempTotal}°C
               {/* 302.339 <sup className="color-bad">(+557)</sup> */}
             </p>
             <p className="sidetext-title"> Вологість:</p>
             <p className="sidetext-number color-good">
-              {curedTotal}
+              {humTotal}%
               {/* {" "}
               239.016 <sup className="color-good">(+2 049)</sup> */}
             </p>
             <p className="sidetext-title"> Кількість частинок pm10:</p>
             <p className="sidetext-number color-bad">
-              {deathTotal}
+              {pm10Total}
               {/* {" "}
               6.560 <sup className="color-bad">(+15)</sup> */}
             </p>
             <p className="sidetext-title"> Кількість частинок pm2.5:</p>
-            <p className="sidetext-number color-good">
-              {vacTotal}
+            <p className="sidetext-number color-bad">
+              {pm25Total}
               {/* {" "}
               1.041.068 <sup className="color-good">(+1 334)</sup> */}
             </p>
@@ -140,7 +161,10 @@ export default function Homepage() {
         </div>
         <div className="App-city">
           <div className="youtubeCenter">
-            <YoutubeEmbed className="youtubeCenter" embedId="nS6NOsHivh4" />
+            <YoutubeEmbed
+              className="youtubeCenter"
+              embedId="nS6NOsHivh4?rel=0&controls=0&autoplay=0&loop=1"
+            />
           </div>
         </div>
         <div></div>

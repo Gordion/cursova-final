@@ -61,23 +61,25 @@ body,
 }
 
 .slider-div {
-  height: 60vh;
+  height: 50vh;
   margin: 20px 0px;
 }
 
 .slider-img {
-  height: 100%;
-  width: 100%;
-  object-fit: contain;
+  width: 750px;
+  height: 550px;
+  /* object-fit: contain; */
+  display: block;
+  margin: 0 auto;
 }
 
 /* .slick-dots {
   margin-bottom: 10px;
 } */
 
-.slider-new {
-  margin-top: 35px;
-}
+/* .slider-new {
+  margin-top: 20px;
+} */
 
 .slick-arrow {
   display: none !important;
@@ -249,8 +251,9 @@ body {
 }
 
 .App-admin {
-  /* display: flex; */
-  /* justify-content: space-between; */
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .form-admin {
@@ -270,11 +273,13 @@ body {
 .form-container {
   display: flex;
   flex-basis: 100%;
+  justify-content: center;
 }
 
 .stats-container {
   display: flex;
   flex-basis: 100%;
+  justify-content: center;
 }
 
 .stats-column {
@@ -287,10 +292,69 @@ body {
   white-space: pre-line;
   font-size: 20px;
   font-family: Arial, Helvetica, sans-serif;
+  text-align: justify;
+  /* width: 750px; */
+  margin: 0 auto;
+  /* margin-top: -120px; */
+  margin-top: 40px;
 }
 
 .helpful-img {
   width: 100px;
   height: 100px;
   display: block;
+}
+
+.border-primary {
+  border-color: #52b788 !important;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #52b788 !important;
+  border-color: #52b788 !important;
+}
+
+.btn-primary:active,
+.show > .btn-primary.dropdown-toggle {
+  color: #fff;
+  background-color: #69f0b1 !important;
+  border-color: #69f0b1 !important;
+}
+
+.btn-primary:hover {
+  color: #fff;
+  background-color: #1c9c31;
+  border-color: #1c9c31;
+}
+
+.btn-check:active + .btn-outline-primary,
+.btn-check:checked + .btn-outline-primary,
+.btn-outline-primary.active,
+.btn-outline-primary.dropdown-toggle.show,
+.btn-outline-primary:active {
+  color: #fff;
+  background-color: #1c9c31 !important;
+  border-color: #1c9c31 !important;
+}
+
+.btn-outline-primary {
+  color: #1c9c31;
+  border-color: #1c9c31;
+}
+
+.btn-outline-primary:hover {
+  color: #fff;
+  background-color: #1c9c31;
+  border-color: #1c9c31;
+}
+
+.btn-check:focus + .btn-outline-primary,
+.btn-outline-primary:focus {
+  box-shadow: 0 0 0 0.25rem rgb(28 156 49 / 50%);
+}
+
+.thead-blue {
+  background-color: #52b788;
+  border-color: #52b788;
 }

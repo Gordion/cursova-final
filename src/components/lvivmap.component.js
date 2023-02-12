@@ -129,7 +129,7 @@ export default function Map(props) {
           console.log("pm10", pm10);
           const aqi = ((pm10.value * pm25.value) / 10) * 3;
           console.log("vacTotal", vacTotal);
-          setVacTotal(aqi);
+          setVacTotal(aqi.toFixed(1));
         }
       }
       // setLastNews(vacResp.data);
@@ -199,7 +199,7 @@ export default function Map(props) {
         className="ecomap"
         // onClick={addMarker}
         center={position}
-        zoom={5}
+        zoom={11}
         style={{ height: "847px", width: "100%" }}
         whenReady={setMap}
         eventHandlers={eventHandlers}
@@ -250,7 +250,13 @@ export default function Map(props) {
           {vacTotal}
         </h3>
         <div>
-          <h2>Перевірте чи ви в безпеці</h2>
+          <h2
+            style={{
+              marginTop: "30px",
+            }}
+          >
+            Перевірте чи ви в безпеці
+          </h2>
           <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput2">
               <Form.Label>Ваші координати</Form.Label>
@@ -283,7 +289,20 @@ export default function Map(props) {
               Розрахувати
             </Button>
           </Form>
-          <p className="sidetext-title">{buttonText}</p>
+          <p
+            className="sidetext-title"
+            style={{
+              color:
+                buttonText == "Ви в безпеці"
+                  ? "#7bd492"
+                  : buttonText == "Ви в небезпеці"
+                  ? "red"
+                  : "black",
+              marginTop: "30px",
+            }}
+          >
+            {buttonText}
+          </p>
         </div>
         <div></div>
       </div>

@@ -16,7 +16,7 @@ import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
 import "./covid-statistic.styles.css";
 import d3legend from "d3-legend";
 import { Pie } from "react-chartjs-2";
-import { Doughnut } from "react-chartjs-2";
+import { Doughnut, PolarArea } from "react-chartjs-2";
 import csvToJSON from "../utils/csvToJSON";
 
 // var d3legend = require("d3-legend")(d3);
@@ -27,6 +27,7 @@ import {
   BarElement,
   Title,
   Tooltip,
+  RadialLinearScale,
   Legend,
   ArcElement,
 } from "chart.js";
@@ -36,6 +37,7 @@ ChartJS.register(
   CategoryScale,
   LinearScale,
   BarElement,
+  RadialLinearScale,
   Title,
   Tooltip,
   Legend,
@@ -118,26 +120,18 @@ export const options = {
     },
     title: {
       display: true,
-      text: "Статистика вакцинації у Львівській області",
+      text: "Статистика забруднення повітря в Бурштині",
     },
   },
 };
 
 function convertPieData(chartData) {
-  const cases = chartData.map((d) => parseInt(d.Cases));
+  const cases = chartData.map((d) => parseInt(d.Amount));
   return {
-    labels: [
-      "Львів",
-      "Золочів",
-      "Дрогобич",
-      "Самбір",
-      "Стрий",
-      "Яворів",
-      "Червоноград",
-    ],
+    labels: ["Dust", "DioxS", "SulfH", "OH", "Am", "Formgel"],
     datasets: [
       {
-        label: "# of Votes",
+        label: "Кількість",
         data: cases,
         backgroundColor: [
           "rgba(255, 99, 132, 0.2)",
@@ -164,21 +158,13 @@ function convertPieData(chartData) {
 }
 
 function convertBarData(chartData) {
-  const cases = chartData.map((d) => parseInt(d.Cases));
-  const labels = [
-    "Львів",
-    "Золочів",
-    "Дрогобич",
-    "Самбір",
-    "Стрий",
-    "Яворів",
-    "Червоноград",
-  ];
+  const cases = chartData.map((d) => parseInt(d.Amount));
+  const labels = ["Dust", "DioxS", "SulfH", "OH", "Am", "Formgel"];
   return {
     labels,
     datasets: [
       {
-        label: "Вакциновані",
+        label: "Кількість",
         data: cases,
         borderColor: "rgb(41, 128, 185)",
         backgroundColor: "rgba(41, 128, 185, 0.5)",
@@ -238,7 +224,7 @@ export default function VacStat() {
   useEffect(() => {
     async function fetchCovData() {
       const covResp = await axios.get(
-        "http://localhost:4000/statistics/get-vac"
+        "http://localhost:4000/statistics/get-chem"
       );
       if (covResp && covResp.status === 200 && covResp.data) {
         const dataLink = covResp.data[0].statslink;
@@ -283,7 +269,7 @@ export default function VacStat() {
         />
       )}
       {value === 2 && pieData?.datasets && (
-        <Doughnut
+        <PolarArea
           data={pieData}
           // width={"500px"}
           // height={"500px"}
@@ -314,7 +300,7 @@ export default function VacStat() {
             id="tbg-radio-2"
             value={2}
           >
-            Doughnut chart
+            Polar Area
           </ToggleButton>
           {/* <ToggleButton
             variant="outline-primary"

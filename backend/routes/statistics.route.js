@@ -165,6 +165,30 @@ router.get("/get-chem", async (req, res) => {
   });
 });
 
+router.get("/get-water", async (req, res) => {
+  console.log("req", req);
+  const { statstype } = req.body;
+  var filter = { statstype: "waterstat" };
+
+  Statistic.find(filter, function (err, doc, raw) {
+    console.log("text", err, doc, raw);
+    if (err) return res.send(500, { error: err });
+    return res.send(doc);
+  });
+});
+
+router.get("/get-air2", async (req, res) => {
+  console.log("req", req);
+  const { statstype } = req.body;
+  var filter = { statstype: "air2stat" };
+
+  Statistic.find(filter, function (err, doc, raw) {
+    console.log("text", err, doc, raw);
+    if (err) return res.send(500, { error: err });
+    return res.send(doc);
+  });
+});
+
 // router.post("/get-news", async (req, res) => {
 //   console.log("req", req);
 //   const { _id } = req.body;

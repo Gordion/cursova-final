@@ -22,7 +22,6 @@ import {
   Tooltip,
   Legend,
   ArcElement,
-  Filler,
   PointElement,
   LineElement,
 } from "chart.js";
@@ -39,7 +38,6 @@ ChartJS.register(
   ArcElement,
   annotationPlugin,
   PointElement,
-  Filler,
   LineElement
 );
 
@@ -74,7 +72,7 @@ export const options = {
   plugins: {
     title: {
       display: true,
-      text: "Забруднення повітря",
+      text: "Забруднення Бурштинського водосховища",
     },
     // annotation: {
     //   annotations: {
@@ -99,7 +97,7 @@ export const options = {
   },
 };
 
-const labels = ["2019", "2020", "2021", "2022"];
+const labels = ["2018", "2019", "2020", "2021"];
 
 // export const data = {
 //   labels,
@@ -123,48 +121,43 @@ const labels = ["2019", "2020", "2021", "2022"];
 // };
 
 function convertPieData(chartData) {
-  const pm10 = chartData.map((d) => parseInt(d.pm10));
-  const pm25 = chartData.map((d) => parseInt(d.pm25));
+  const cases = chartData.map((d) => parseInt(d.Amount));
+  const sulfates = chartData.map((d) => parseInt(d.sulfates));
+  const chlorides = chartData.map((d) => parseInt(d.chlorides));
   return {
-    labels: ["2019", "2020", "2021", "2022"],
+    labels: ["2018", "2019", "2020", "2021"],
     datasets: [
       {
-        label: "pm10",
-        data: pm10,
-        fill: true,
-        backgroundColor: ["rgba(0, 119, 182, 0.2)"],
-        borderColor: ["rgba(0, 119, 182, 1)"],
-        borderWidth: 1,
+        label: "Sulfates",
+        data: sulfates,
+        backgroundColor: "rgb(174, 176, 51)",
       },
       {
-        label: "pm2.5",
-        fill: true,
-        data: pm25,
-        backgroundColor: ["rgba(50, 192, 82, 0.2)"],
-        borderColor: ["rgba(50, 192, 82, 1)"],
-        borderWidth: 1,
+        label: "Chlorides",
+        data: chlorides,
+        backgroundColor: "rgb(121, 173, 173)",
       },
     ],
   };
 }
 
 function convertBarData(chartData) {
-  const pm10 = chartData.map((d) => parseInt(d.pm10));
-  const pm25 = chartData.map((d) => parseInt(d.pm25));
+  const sulfates = chartData.map((d) => parseInt(d.sulfates));
+  const chlorides = chartData.map((d) => parseInt(d.chlorides));
   // const cured = chartData.map((d) => parseInt(d.Cured));
   // const death = chartData.map((d) => parseInt(d.Death));
   return {
     labels,
     datasets: [
       {
-        label: "Pm10",
-        data: pm10,
-        backgroundColor: "rgb(0, 119, 182)",
+        label: "Sulfates",
+        data: sulfates,
+        backgroundColor: "rgb(174, 176, 51)",
       },
       {
-        label: "Pm25",
-        data: pm25,
-        backgroundColor: "rgb(201, 173, 167)",
+        label: "Chlorides",
+        data: chlorides,
+        backgroundColor: "rgb(121, 173, 173)",
       },
 
       // {
@@ -199,7 +192,7 @@ export default function CovidStat() {
   useEffect(() => {
     async function fetchCovData() {
       const covResp = await axios.get(
-        "http://localhost:4000/statistics/get-air2"
+        "http://localhost:4000/statistics/get-water"
       );
       if (covResp && covResp.status === 200 && covResp.data) {
         const dataLink = covResp.data[0].statslink;
@@ -248,7 +241,7 @@ export default function CovidStat() {
         <Line
           width={"2000px"}
           height={"1500px"}
-          classname="piechart"
+          // classname="piechart"
           data={pieData}
           style={{ marginTop: 30 }}
         />
@@ -276,7 +269,7 @@ export default function CovidStat() {
             id="tbg-radio-2"
             value={2}
           >
-            Pie chart
+            Line chart
           </ToggleButton>
           {/* <ToggleButton
             variant="outline-primary"
