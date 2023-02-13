@@ -14,13 +14,8 @@ export default class News extends Component {
           <Card border="primary" style={{ width: "20rem", fontsize: "1.5rem" }}>
             <Card.Header>Останні новини</Card.Header>
             <Card.Body>
-              <Card.Title>
-                На Львівщині продовжується вакцинальна кампанія проти Covid-19.
-              </Card.Title>
-              <Card.Text>
-                Центри масової вакцинації населення зараз не працюють, проте
-                провакцинуватися можна у пунктах щеплення,
-              </Card.Text>
+              <Card.Title></Card.Title>
+              <Card.Text></Card.Text>
               <Button variant="primary">Більше про новину</Button>
             </Card.Body>
           </Card>

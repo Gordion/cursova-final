@@ -53,9 +53,6 @@ export default class AdminPage extends Component {
       statslink: this.state.statslink,
     };
     axios
-      // .post("http://localhost:4000/statistics/set-statistic", {
-      //   ...statsObject,
-      // })
       .post("http://localhost:4000/statistics/set-statistic", {
         statstype: this.state.statstype,
         statsObject,
@@ -151,47 +148,6 @@ export default class AdminPage extends Component {
     });
   };
 
-  // onSubmit(e) {
-  //   e.preventDefault();
-  //   console.log(0);
-  //   const userObject = {
-  //     name: this.state.name,
-  //     password: this.state.password,
-  //   };
-  //   axios
-  //     .post("http://localhost:4000/News/get-news", userObject)
-  //     .then((res) => {
-  //       console.log("/News/get-news", res);
-  //       this.setState({ News: res });
-  //       if (localStorage.getItem("News")) {
-  //         console.log("test", this.state);
-  //         let user = JSON.parse(localStorage.getItem("user"));
-  //         console.log("text", user);
-  //         axios
-  //           .post("http://localhost:4000/News/name", {
-  //             _id: user._id,
-  //           })
-  //           .then((res) => {
-  //             console.log("text", res);
-  //           });
-  //         return;
-  //       } else {
-  //       }
-  //       console.log("onlogin", res.data);
-  //       const { _id, name } = res.data.user;
-  //       localStorage.setItem("user", JSON.stringify({ _id, name }));
-  //       console.log(this.props, "props");
-  //       this.props.navigate("/homepage");
-  //       this.props.onLogin(name);
-  //     });
-  //   // .catch((e) => {
-  //   //   console.log(">>>", e);
-  //   //   alert("Неправильний логін або пароль");
-  //   // });
-
-  //   this.setState({ name: "", password: "" });
-  // }
-
   render() {
     return (
       <div className="App">
@@ -245,83 +201,7 @@ export default class AdminPage extends Component {
                   Submit
                 </Button>
               </Form>
-              {/* <ul>
-               {this.state.News.map((item) => (
-                <li>{item.title}</li>
-              ))} 
-            </ul> */}
-              {/* <tr>
-                <td>
-                    {this.props.obj._id}
-                </td>
-                <td>
-                    {this.props.obj.name}
-                </td>
-                <td>
-                    {this.props.obj.email}
-                </td>
-            </tr> */}
             </div>
-
-            {/* <div className="form-admin">
-              <h2>Statistic</h2>
-              <Form>
-                <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput2"
-                >
-                  <Form.Label>Title</Form.Label>
-                  <Form.Control
-                    value={this.state.namestat}
-                    onChange={this.onChangeNameStat}
-                    type="text"
-                  />
-                </Form.Group>
-                <Form.Label>Type of Statistic</Form.Label>
-                <Form.Control
-                  value={this.state.statstype}
-                  onChange={this.onChangeStatsType}
-                  as="select"
-                >
-                  <option value="cov">Covid</option>
-                  <option value="vac">Vaccination</option>
-                  <option value="map">Map</option>
-                </Form.Control>
-                <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlInput2"
-                >
-                  <Form.Label>Timestamp</Form.Label>
-                  <Form.Control
-                    value={this.state.timestampstat}
-                    onChange={this.onChangeTimestampStat}
-                    type="date"
-                  ></Form.Control>
-                </Form.Group>
-                <Form.Group
-                  className="mb-3"
-                  controlId="exampleForm.ControlTextarea2"
-                >
-                  <Form.Label>Data link</Form.Label>
-                  <Form.Control
-                    value={this.state.statslink}
-                    onChange={this.onChangeStatsLink}
-                    as="textarea"
-                    rows={3}
-                  />
-                </Form.Group>
-                <Button
-                  variant="primary"
-                  size="lg"
-                  block="block"
-                  type="submit"
-                  className="mt-4"
-                  onClick={this.onSubmitStat}
-                >
-                  Submit
-                </Button>
-              </Form>
-            </div> */}
           </div>
 
           <div className="stats-container">
@@ -334,29 +214,9 @@ export default class AdminPage extends Component {
                     <td>Delete</td>
                   </tr>
                 </thead>
-                <tbody>
-                  {/* <tr>
-                      <td>{this.props.obj._id}</td>
-                      <td>{this.props.obj.name}</td>
-                      <td>{this.props.obj.email}</td>
-                    </tr> */}
-                  {this.dataTable(this.state.newsCollection)}
-                </tbody>
+                <tbody>{this.dataTable(this.state.newsCollection)}</tbody>
               </table>
             </div>
-            {/* <div className="stats-column">
-              <table className="table table-striped table-blue">
-                <thead className="thead-blue">
-                  <tr>
-                    <td>Name</td>
-                    <td>Timestamp</td>
-                  </tr>
-                </thead>
-                <tbody>
-                  {this.dataTable(this.state.statsCollection, true)}
-                </tbody>
-              </table>
-            </div> */}
           </div>
         </div>
       </div>

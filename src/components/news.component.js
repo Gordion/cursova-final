@@ -4,7 +4,6 @@ import Button from "react-bootstrap/Button";
 import axios from "axios";
 import Card from "react-bootstrap/Card";
 import banner from "./maxresdefault.jpg";
-import regions from "./Lviv_regions.svg";
 
 // const data = [
 //   {

@@ -4,23 +4,14 @@ import Button from "react-bootstrap/Button";
 import axios from "axios";
 import Card from "react-bootstrap/Card";
 import "./homepage.css";
-import banner from "./maxresdefault.jpg";
-import regions from "./Lviv_regions.svg";
+
 import { useNavigate, Link } from "react-router-dom";
 import csvToJSON from "../utils/csvToJSON";
 import VideoPlayer from "react-video-js-player";
 import YoutubeEmbed from "./YoutubeEmbed";
 
 export default function Homepage() {
-  // const onMapClick = () => {
-  //   useNavigate("/lvivmap");
-  // };
-
   const [lastNews, setLastNews] = useState({});
-  const [casesTotal, setCasesTotal] = useState(0);
-  const [curedTotal, setCuredTotal] = useState(0);
-  const [deathTotal, setDeathTotal] = useState(0);
-  const [vacTotal, setVacTotal] = useState(0);
   const [pm25Total, setPm25Total] = useState(0);
   const [pm10Total, setPm10Total] = useState(0);
   const [tempTotal, setTempTotal] = useState(0);
@@ -38,75 +29,33 @@ export default function Homepage() {
       }
     }
 
-    async function fetchCovidStatData() {
-      const covResp = await axios.get(
-        "http://localhost:4000/statistics/get-cov"
-      );
-      if (covResp && covResp.status === 200 && covResp.data) {
-        console.log("covResp", covResp.data);
-        const covLink = covResp.data[0].statslink;
-        const covLinkResp = await axios.get(covLink);
-        // setLastNews(covResp.data);
-        if (covLinkResp && covLinkResp.status === 200 && covLinkResp.data) {
-          const covDataCsv = covLinkResp.data;
-          console.log("covDataCsv", covDataCsv);
-          const covData = csvToJSON(covDataCsv);
-          console.log("covData", covData);
-
-          const casesTotal = covData
-            .map((item) => parseInt(item.Cases))
-            .reduce(
-              (previousValue, currentValue) => previousValue + currentValue,
-              0
-            );
-          console.log("casesTotal", casesTotal);
-          setCasesTotal(casesTotal);
-
-          const curedTotal = covData
-            .map((item) => parseInt(item.Cured))
-            .reduce(
-              (previousValue, currentValue) => previousValue + currentValue,
-              0
-            );
-          console.log("curedTotal", curedTotal);
-          setCuredTotal(curedTotal);
-          const deathTotal = covData
-            .map((item) => parseInt(item.Death))
-            .reduce(
-              (previousValue, currentValue) => previousValue + currentValue,
-              0
-            );
-          console.log("deathTotal", deathTotal);
-          setDeathTotal(deathTotal);
-        }
-      }
-
-      const vacResp = await axios.get(
+    async function fetchairStatData() {
+      const airResp = await axios.get(
         "http://localhost:4000/statistics/get-air"
       );
-      if (vacResp && vacResp.status === 200 && vacResp.data) {
-        console.log("vacResp", vacResp.data);
-        const vacLink = vacResp.data[0].statslink;
-        const vacLinkResp = await axios.get(vacLink);
+      if (airResp && airResp.status === 200 && airResp.data) {
+        console.log("airResp", airResp.data);
+        const airLink = airResp.data[0].statslink;
+        const airLinkResp = await axios.get(airLink);
         // setLastNews(covResp.data);
-        if (vacLinkResp && vacLinkResp.status === 200 && vacLinkResp.data) {
-          const vacDataCsv = vacLinkResp.data;
-          console.log("vacDataCsv", vacDataCsv);
-          const vacData = csvToJSON(vacDataCsv);
-          console.log("vacData", vacData);
-          const vacTotal = vacData
+        if (airLinkResp && airLinkResp.status === 200 && airLinkResp.data) {
+          const airDataCsv = airLinkResp.data;
+          console.log("airDataCsv", airDataCsv);
+          const airData = csvToJSON(airDataCsv);
+          console.log("airData", airData);
+          const airTotal = airData
             .map((item) => parseInt(item.Cases))
             .reduce(
               (previousValue, currentValue) => previousValue + currentValue,
               0
             );
-          const pm25 = vacData.find((item) => item.phenomenon === "pm25");
+          const pm25 = airData.find((item) => item.phenomenon === "pm25");
           console.log("pm25", pm25);
-          const pm10 = vacData.find((item) => item.phenomenon === "pm10");
+          const pm10 = airData.find((item) => item.phenomenon === "pm10");
           console.log("pm10", pm10);
-          const hum = vacData.find((item) => item.phenomenon === "humidity");
+          const hum = airData.find((item) => item.phenomenon === "humidity");
           console.log("humidity", hum);
-          const temp = vacData.find(
+          const temp = airData.find(
             (item) => item.phenomenon === "temperature"
           );
           const pm25v = pm25.value;
@@ -114,17 +63,17 @@ export default function Homepage() {
           const humv = hum.value;
           const tempv = temp.value;
           console.log("temperature", temp);
-          console.log("vacTotal", vacTotal);
+          console.log("airTotal", airTotal);
           setPm10Total(pm10v);
           setPm25Total(pm25v);
           setTempTotal(tempv);
           setHumTotal(humv);
         }
       }
-      // setLastNews(vacResp.data);
+      // setLastNews(airResp.data);
     }
 
-    fetchCovidStatData();
+    fetchairStatData();
     fetchLastNewsData();
   }, []);
 

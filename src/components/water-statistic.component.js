@@ -9,7 +9,7 @@ import { queue } from "d3-queue";
 import d3Tip from "d3-tip";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import ToggleButtonGroup from "react-bootstrap/ToggleButtonGroup";
-import "./covid-statistic.styles.css";
+import "./air-statistic.styles.css";
 import d3legend from "d3-legend";
 import { Pie } from "react-chartjs-2";
 import csvToJSON from "../utils/csvToJSON";
@@ -144,8 +144,7 @@ function convertPieData(chartData) {
 function convertBarData(chartData) {
   const sulfates = chartData.map((d) => parseInt(d.sulfates));
   const chlorides = chartData.map((d) => parseInt(d.chlorides));
-  // const cured = chartData.map((d) => parseInt(d.Cured));
-  // const death = chartData.map((d) => parseInt(d.Death));
+
   return {
     labels,
     datasets: [
@@ -159,30 +158,11 @@ function convertBarData(chartData) {
         data: chlorides,
         backgroundColor: "rgb(121, 173, 173)",
       },
-
-      // {
-      //   label: "Dataset 1",
-      //   type: "line",
-      //   borderColor: "rgb(255, 99, 132)",
-      //   borderWidth: 2,
-      //   fill: false,
-      //   data: [1000, 500, 5000, 6000],
-      // },
-      // {
-      //   label: "Cured",
-      //   data: cured,
-      //   backgroundColor: "rgb(75, 192, 192)",
-      // },
-      // {
-      //   label: "Death",
-      //   data: death,
-      //   backgroundColor: "rgb(0, 0, 0)",
-      // },
     ],
   };
 }
 
-export default function CovidStat() {
+export default function WatidStat() {
   const [value, setValue] = useState(1);
   const [barData, setBarData] = useState({});
   const [pieData, setPieData] = useState({});
@@ -190,12 +170,12 @@ export default function CovidStat() {
   const handleChange = (val) => setValue(val);
 
   useEffect(() => {
-    async function fetchCovData() {
-      const covResp = await axios.get(
+    async function fetchwatData() {
+      const watResp = await axios.get(
         "http://localhost:4000/statistics/get-water"
       );
-      if (covResp && covResp.status === 200 && covResp.data) {
-        const dataLink = covResp.data[0].statslink;
+      if (watResp && watResp.status === 200 && watResp.data) {
+        const dataLink = watResp.data[0].statslink;
         const dataLinkResp = await axios.get(dataLink);
         if (dataLinkResp && dataLinkResp.status === 200 && dataLinkResp.data) {
           const chartDataCsv = dataLinkResp.data;
@@ -214,7 +194,7 @@ export default function CovidStat() {
       }
     }
 
-    fetchCovData();
+    fetchwatData();
   }, []);
 
   return (
